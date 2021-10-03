@@ -22,7 +22,6 @@ const Info = () => {
 
   return (
     <div>
-      info
       {getContent(params)}
     </div>
   );

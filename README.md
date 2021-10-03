@@ -1,4 +1,9 @@
+![search-section](img/search-section.png)
 ![app-favorites-section](img/favorites-section.png)
+![all-users-section](img/all-users-section.png)
+![user-info-section](user-info-section)
+\
+\
 ![logop5](https://p5-hall-of-fame.s3.amazonaws.com/p5logo.png)
 
 # 25 - OMDB
