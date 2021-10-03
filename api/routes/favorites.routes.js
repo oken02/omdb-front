@@ -11,18 +11,8 @@ const router = express.Router();
   /api/favorites 
 */
 
-// router.get("/", async (req, res) => {
-//   res.send(await Favorite.findAll());
-// });
-
-// router.get("/:key/:value", async (req, res) => {
-//   const { key, value } = req.params;
-//   const r = await Favorite.findAll({ where: { [key]: value } });
-//   res.send({ len: r.length, ...r });
-// });
-
-router.get("/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.get("/", validateToken, async (req, res) => {
+  const { userId } = req.payload;
 
   try {
     const user = await User.findByPk(userId);
@@ -41,8 +31,8 @@ router.get("/:userId", async (req, res) => {
   }
 });
 
-router.post("/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.post("/", validateToken, async (req, res) => {
+  const { userId } = req.payload;
   const body = req.body;
   try {
     const user = await User.findByPk(userId);
@@ -69,6 +59,8 @@ router.post("/:userId", async (req, res) => {
 
         console.log("FAVORITE", favorite.toJSON());
 
+        await user.update({ lastActivity: new Date() });
+
         res.status(201).json(favorite);
       }
     } else res.status(404).json({ ok: false, msg: "user no exists" });
@@ -78,8 +70,10 @@ router.post("/:userId", async (req, res) => {
   }
 });
 
-router.delete("/:userId/:favId", (req, res) => {
-  const { userId, favId } = req.params;
+router.delete("/:favId", validateToken, (req, res) => {
+  const { favId } = req.params;
+  const { userId } = req.payload;
+
   console.log("DELETE USER", userId, "FAV ID", favId);
 
   const user = User.build({ id: userId });

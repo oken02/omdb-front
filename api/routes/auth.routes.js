@@ -14,7 +14,7 @@ router.post("/login", async (req, res) => {
 
     if (user) {
       const { id, username } = user;
-      const token = generateToken({ id, username });
+      const token = generateToken({ userId: id, username });
       res.json({ ok: true, msg: "login success!", token, user });
     } else res.status(404).json({ msg: "user no exists" });
   } catch (error) {
@@ -24,7 +24,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/validate", validateToken, (req, res) => {
-  const { id: userId } = req.user;
+  const { userId } = req.payload;
 
   User.findByPk(userId).then((user) => {
     user.getFavorites().then((favorites) => {

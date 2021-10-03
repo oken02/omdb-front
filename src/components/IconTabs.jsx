@@ -6,7 +6,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import { matchPath, NavLink, useHistory, useLocation } from "react-router-dom";
-import { AppBar } from "@material-ui/core";
+import { AppBar, Paper } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/Info";
 import PeopleIcon from "@material-ui/icons/People";
 
@@ -32,7 +32,7 @@ function IconTabs() {
   const history = useHistory();
   const [value, setValue] = React.useState(() =>
     searchTabIdx(location.pathname)
-  ); 
+  );
 
   function searchTabIdx(pathname) {
     for (let i = 0; i < routes.length; i++) {
@@ -59,7 +59,8 @@ function IconTabs() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      {/* <AppBar position="static" color="default"> */}
+      <Paper>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -103,7 +104,9 @@ function IconTabs() {
             aria-label="alt"
           />
         </Tabs>
-      </AppBar>
+      </Paper>
+
+      {/* </AppBar> */}
     </div>
   );
 }

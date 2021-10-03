@@ -5,7 +5,8 @@ export const required = (value) => {
 export const length = (minLen, maxLen = Infinity) => {
   return (value) => {
     return (
-      !(value.length >= minLen && value.length <= maxLen) && "lenght no valida"
+      !(value.length >= minLen && value.length <= maxLen) &&
+      "longitud no valida"
     );
   };
 };

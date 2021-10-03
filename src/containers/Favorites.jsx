@@ -1,3 +1,4 @@
+import { Alert } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Movies from "../components/Movies";
@@ -14,17 +15,7 @@ const Favorites = () => {
     });
   }, []);
 
-  return (
-    <div>
-      <h1>Favorites</h1>
-
-      {favorites ? (
-        <Movies movies={favorites} style="solid" />
-      ) : (
-        <p>Loading favorites</p>
-      )}
-    </div>
-  );
+  return <div>{favorites && <Movies movies={favorites} style="solid" />}</div>;
 };
 
 export default Favorites;

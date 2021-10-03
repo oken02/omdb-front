@@ -89,7 +89,9 @@ export const ProfileCardDemo = React.memo(function ProfileCard({ user }) {
         <Box p={2} flex={"auto"} className={borderedGridStyles.item}>
           <p className={styles.statLabel}>Last activity</p>
 
-          <p className={styles.statValue}>12</p>
+          <p className={styles.statValue}>
+            {new Date(user.lastActivity).toLocaleDateString()}
+          </p>
         </Box>
       </Box>
     </Card>

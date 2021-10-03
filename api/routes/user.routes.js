@@ -9,22 +9,22 @@ const router = express.Router();
 
 // /api/users
 
-router.get("/", (req, res) => {
+router.get("/", validateToken, (req, res) => {
   User.findAll({
     include: Favorite,
-    attributes: ["id", "firstName", "lastName", "username"],
+    attributes: ["id", "firstName", "lastName", "username", "lastActivity"],
   }).then((users) => {
     res.json(users);
   });
 });
 
-router.get("/:username", async (req, res) => {
+router.get("/:username", validateToken, async (req, res) => {
   const { username } = req.params;
 
   const user = await User.findOne({
     where: { username },
     include: Favorite,
-    attributes: ["id", "firstName", "lastName", "username"],
+    attributes: ["id", "firstName", "lastName", "username", "lastActivity"],
   });
 
   if (!user) {
@@ -35,8 +35,8 @@ router.get("/:username", async (req, res) => {
   }
 });
 
-router.put("/:username", async (req, res) => {
-  const { username } = req.params;
+router.put("/", validateToken, async (req, res) => {
+  const { username } = req.payload;
 
   const [cant, [userUpdated]] = await User.update(req.body, {
     where: { username },
@@ -69,21 +69,5 @@ router.post("/", async (req, res) => {
     res.status(500).json({ ok: false, msg: "server error" });
   }
 });
-
-// router.post("/", async (req, res) => {
-//   try {
-//     const createdUser = await User.create(req.body, {
-//       fields: ["firstName", "lastName", "username", "password"],
-//     }).catch(err =>{
-//       // unique error
-//     })
-
-//     res.status(201).json(createdUser);
-//     // res.status(404).json({ msg: "username no valid" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ ok: false, msg: "server error" });
-//   }
-// });
 
 module.exports = router;

@@ -1,3 +1,4 @@
+import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Movies from "../components/Movies";
@@ -46,9 +47,13 @@ const Search = () => {
     <div>
       <SearchInput change={change} />
 
-      {query.length < 3 && <h2>SEARCH ANYTHING</h2>}
+      {query.length < 3 && (
+        <Alert style={{ justifyContent: "center" }} severity="info">
+          <strong>Intenta buscar algo</strong>
+        </Alert>
+      )}
 
-      {!movies && query.length >= 3 && <h2>LOADING MATCHES</h2>}
+      {/* {!movies && query.length >= 3 && <h2>LOADING MATCHES</h2>} */}
 
       {movies && <Movies movies={movies} />}
     </div>

@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import getToken from "../utils/getToken";
 import { login } from "../utils/login";
 
 export const sendValidation = createAsyncThunk("SEND_VALIDATION", () => {
@@ -12,18 +13,16 @@ export const sendValidation = createAsyncThunk("SEND_VALIDATION", () => {
 });
 
 export const getUsers = createAsyncThunk("GET_USERS", (params, thunkAPI) => {
-  return axios.get(`/api/users`).then(({ data }) => data);
+  return axios.get(`/api/users`, getToken()).then(({ data }) => data);
 });
 
 export const getUser = createAsyncThunk("GET_USER", (id, thunkAPI) => {
-  return axios.get(`/api/users/${id}`).then(({ data }) => data);
+  return axios.get(`/api/users/${id}`, getToken()).then(({ data }) => data);
 });
 
 export const updateUser = createAsyncThunk("UPDATE_USER", (body, thunkAPI) => {
-  const { data } = thunkAPI.getState().user;
-  return axios
-    .put(`/api/users/${data.username}`, body)
-    .then(({ data }) => data);
+  // const { data } = thunkAPI.getState().user;
+  return axios.put(`/api/users`, body, getToken()).then(({ data }) => data);
 });
 
 export const getMovie = createAsyncThunk("GET_MOVIE", (id, thunkAPI) => {
@@ -35,9 +34,9 @@ export const getMovie = createAsyncThunk("GET_MOVIE", (id, thunkAPI) => {
 export const getFavorites = createAsyncThunk(
   "GET_FAVORITES",
   (params, thunkAPI) => {
-    const { data } = thunkAPI.getState().user;
+    // const { data } = thunkAPI.getState().user;
 
-    return axios.get(`/api/favorites/${data.id}`).then(({ data }) => data);
+    return axios.get(`/api/favorites`, getToken()).then(({ data }) => data);
   }
 );
 
@@ -58,10 +57,10 @@ export const setFavorites = createAction("SET_FAVORITES");
 export const addFavorite = createAsyncThunk(
   "ADD_FAVORITE",
   (body, thunkAPI) => {
-    const user = thunkAPI.getState().user;
+    // const user = thunkAPI.getState().user;
 
     return axios
-      .post(`/api/favorites/${user.data.id}`, body)
+      .post(`/api/favorites`, body, getToken())
       .then((res) => res.data);
   }
 );
@@ -70,10 +69,10 @@ export const deleteFavorite = createAsyncThunk(
   "DELETE_FAVORITE",
   ({ dbId, imdbID }, thunkAPI) => {
     console.log("THUNK DELETE FAVORITE ", { dbId, imdbID });
-    const user = thunkAPI.getState().user;
+    // const user = thunkAPI.getState().user;
 
     return axios
-      .delete(`/api/favorites/${user.data.id}/${dbId}`)
+      .delete(`/api/favorites/${dbId}`, getToken())
       .then(() => imdbID);
   }
 );

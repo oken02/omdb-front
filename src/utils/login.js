@@ -1,4 +1,5 @@
 import axios from "axios";
+import getToken from "./getToken";
 
 export const login = () => {
   return new Promise((res, rej) => {
@@ -7,17 +8,6 @@ export const login = () => {
       rej();
       return;
     }
-
-    axios
-      .post(
-        "/api/auth/validate",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + lstoken,
-          },
-        }
-      )
-      .then(res, rej);
+    axios.post("/api/auth/validate", {}, getToken()).then(res, rej);
   });
 };

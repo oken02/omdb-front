@@ -25,6 +25,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    lastActivity: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
   },
   { sequelize: db, modelName: "user" }
 );

@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import { Avatar } from "@material-ui/core";
+import { Avatar, Box } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/user.reducer";
@@ -36,14 +36,16 @@ export default function Header() {
     <div>
       <AppBar position="static" color="transparent">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-          >
+          > */}
+          <Box mr={2}>
             <Avatar alt={user.data.username} src="/broken-image.jpg" />
-          </IconButton>
+          </Box>
+          {/* </IconButton> */}
 
           <Typography align="center" variant="h6">
             {user.data.username}

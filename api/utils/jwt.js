@@ -13,13 +13,12 @@ const validateToken = (req, res, next) => {
     return res.status(401).json({ msg: "token missing or invalid" });
   }
 
-  jwt.verify(reqToken, "SECRET", (err, user) => {
+  jwt.verify(reqToken, "SECRET", (err, payload) => {
     if (err) {
       // console.log(err);
       return res.sendStatus(401);
     }
-    console.log("user", user);
-    req.user = user;
+    req.payload = payload;
     console.log("NEXT");
     next();
   });

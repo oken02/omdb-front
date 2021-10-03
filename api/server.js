@@ -15,16 +15,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
 
-const e = async () => {
-  try {
-    await db.sync({ force: false });
-    // Code here
+db.sync({ force: false })
+  .then(() => {
+    console.log("DB ONLINE");
     app.listen(3001, () => {
       console.log("server on port 3001");
     });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-e();
+  })
+  .catch(console.error);
