@@ -11,5 +11,4 @@
 - Poder agregar una película a tu lista de favoritos.
 - Ver tu lista de películas favoritas.
 - Poder sacar películas de tu lista de favoritos.
-- Buscar Usuarios.
 - Ver el perfil de un usuario con sus películas favoritas.
