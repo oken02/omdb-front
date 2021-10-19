@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { length, required } from "../utils/validators";
-import useForm  from "../hooks/useForm";
+import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../store/user.reducer";
 import { useHistory } from "react-router-dom";
@@ -36,21 +36,21 @@ const useStyles = makeStyles((theme) => ({
 
 const defaultFormValue = (user) => {
   return {
-    firstName: [user.data.firstName, [required, length(2)]],
-    lastName: [user.data.lastName, [required, length(5)]],
-    username: [user.data.username, [required, length(4)]],
-    password: [user.data.password, [required, length(6)]],
+    fullName: [user.data.fullName, [required, length(3)]],
+    username: [user.data.username, [required, length(3)]],
+    password: [user.data.password, [required, length(3)]],
   };
 };
 
 const Profile = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
+  console.log("USERRRRRR", user);
   const dispatch = useDispatch();
   const history = useHistory();
   const { form, handleInp } = useForm(defaultFormValue(user));
 
-  const { firstName, lastName, username, password } = form.controls;
+  const { fullName, username, password } = form.controls;
 
   const onRegister = async (e) => {
     e.preventDefault();
@@ -81,22 +81,21 @@ const Profile = () => {
           onSubmit={onRegister}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12}>
               <TextField
-                error={firstName.dirty && !!firstName.errors.length}
-                helperText={firstName.dirty && firstName.errors[0]}
-                autoComplete="fname"
-                name="firstName"
+                error={fullName.dirty && !!fullName.errors.length}
+                helperText={fullName.dirty && fullName.errors[0]}
+                name="fullName"
                 variant="outlined"
                 required
                 fullWidth
-                label="First Name"
+                label="Full Name"
                 autoFocus
                 onChange={handleInp}
-                value={firstName.value}
+                value={fullName.value}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 error={!!lastName.errors.length}
                 helperText={lastName.errors[0]}
@@ -109,7 +108,7 @@ const Profile = () => {
                 onChange={handleInp}
                 value={lastName.value}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
                 error={username.dirty && !!username.errors.length}

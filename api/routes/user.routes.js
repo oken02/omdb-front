@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/", validateToken, (req, res) => {
   User.findAll({
     include: Favorite,
-    attributes: ["id", "firstName", "lastName", "username", "lastActivity"],
+    attributes: ["id", "fullName", "username", "lastActivity"],
   }).then((users) => {
     res.json(users);
   });
@@ -24,7 +24,7 @@ router.get("/:username", validateToken, async (req, res) => {
   const user = await User.findOne({
     where: { username },
     include: Favorite,
-    attributes: ["id", "firstName", "lastName", "username", "lastActivity"],
+    attributes: ["id", "fullName", "username", "lastActivity"],
   });
 
   if (!user) {
@@ -41,7 +41,7 @@ router.put("/", validateToken, async (req, res) => {
   const [cant, [userUpdated]] = await User.update(req.body, {
     where: { username },
     returning: true,
-    fields: ["firstName", "lastName", "username", "password"],
+    fields: ["fullName", "username", "password"],
   });
 
   if (cant === 0) {
@@ -59,7 +59,7 @@ router.post("/", async (req, res) => {
 
     if (!user) {
       const createdUser = await User.create(req.body, {
-        fields: ["firstName", "lastName", "username", "password"],
+        fields: ["fullName", "username", "password"],
       });
 
       res.status(201).json(createdUser);

@@ -1,6 +1,6 @@
 import { Box, Container } from "@material-ui/core";
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "./components/Header";
 import IconTabs from "./components/IconTabs";
 import Search from "./containers/Search";
@@ -37,14 +37,13 @@ const Home = () => {
           </Route>
 
           <Route path="/profile">
-            <div>
-              <Profile />
-            </div>
+            <Profile />
           </Route>
 
           <Route path="/info/:type/:id">
             <Info />
           </Route>
+          <Redirect to="/search" />
         </Switch>
       </Container>
     </div>

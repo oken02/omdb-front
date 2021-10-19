@@ -72,9 +72,7 @@ export const ProfileCardDemo = React.memo(function ProfileCard({ user }) {
           src="/broken-image.jpg"
           className={styles.avatar}
         />
-        <h3
-          className={styles.heading}
-        >{`${user.firstName} ${user.lastName}`}</h3>
+        <h3 className={styles.heading}>{`${user.fullName}`}</h3>
         <span className={styles.subheader}>{user.username}</span>
       </CardContent>
       <Divider light />

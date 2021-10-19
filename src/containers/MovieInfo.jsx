@@ -12,6 +12,7 @@ import { useBouncyShadowStyles } from "@mui-treasury/styles/shadow/bouncy";
 import { getMovie } from "../store/user.reducer";
 import { useParams } from "react-router-dom";
 import useAsyncAction from "../hooks/useAsyncAction";
+import { Box, CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -41,6 +42,12 @@ export const MovieInfo = React.memo(function NewsCard() {
 
   return (
     <div>
+      {status === "pending" && (
+        <Box p={6} textAlign="center">
+          <CircularProgress />
+        </Box>
+      )}
+      
       {status === "resolved" && (
         <Card className={cx(styles.root, shadowStyles.root)}>
           <CardMedia classes={mediaStyles} image={movie.Poster} />

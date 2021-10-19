@@ -55,8 +55,8 @@ export default function Login() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { form, handleInp } = useForm({
-    username: ["", [required, length(2)]],
-    password: ["", [required, length(4)]],
+    username: ["", [required, length(3)]],
+    password: ["", [required, length(3)]],
   });
 
   const [remember, setRemember] = useState(true);

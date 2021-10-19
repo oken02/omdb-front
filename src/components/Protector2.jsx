@@ -15,7 +15,6 @@ const Protector2 = ({ children, evaluate }) => {
     return loading;
   } else {
     const pathToRedirect = evaluate(user);
-
     if (pathToRedirect) {
       return <Redirect to={pathToRedirect} />;
     } else {

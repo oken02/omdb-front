@@ -3,7 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 import React from "react";
 import Movie from "./Movie";
 
-const Movies = ({ movies, style }) => {
+const Movies = ({ movies, style, mess }) => {
   return (
     <div>
       {movies.length ? (
@@ -15,9 +15,11 @@ const Movies = ({ movies, style }) => {
           ))}
         </Grid>
       ) : (
-        <Alert style={{ justifyContent: "center" }} severity="info">
-          <strong>No tienes favoritos</strong>
-        </Alert>
+        !mess && (
+          <Alert style={{ justifyContent: "center" }} severity="info">
+            <strong>No tienes favoritos</strong>
+          </Alert>
+        )
       )}
     </div>
   );

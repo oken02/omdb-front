@@ -1,3 +1,4 @@
+import { Box, CircularProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -6,25 +7,21 @@ import SearchInput from "../components/SearchInput";
 
 const Search = () => {
   const [query, setQuery] = useState("");
-
-  const [movies, setMovies] = useState(null);
-
-  const change = ({ target: { value } }) => {
-    setQuery(value);
-  };
-
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     let cancelled = false;
-    const search = async () => {
-      if (query.length >= 3) {
-        setMovies(null);
 
+    (async () => {
+      if (query.length >= 3) {
+        if (!loading) setLoading(true);
         const { data } = await axios.get(
           "https://www.omdbapi.com/?apikey=b9efff26&s=" + query,
           {}
         );
 
         if (!cancelled) {
+          setLoading(false);
           if (data.Response == "True") {
             setMovies(data.Search);
           } else {
@@ -32,11 +29,10 @@ const Search = () => {
           }
         }
       } else {
-        setMovies(null);
+        setMovies([]);
+        setLoading(false);
       }
-    };
-
-    search();
+    })();
 
     return () => {
       cancelled = true;
@@ -45,7 +41,7 @@ const Search = () => {
 
   return (
     <div>
-      <SearchInput change={change} />
+      <SearchInput change={(e) => setQuery(e.target.value)} />
 
       {query.length < 3 && (
         <Alert style={{ justifyContent: "center" }} severity="info">
@@ -53,9 +49,13 @@ const Search = () => {
         </Alert>
       )}
 
-      {/* {!movies && query.length >= 3 && <h2>LOADING MATCHES</h2>} */}
-
-      {movies && <Movies movies={movies} />}
+      {!loading ? (
+        <Movies movies={movies} mess={true} />
+      ) : (
+        <Box p={6} textAlign="center">
+          <CircularProgress />
+        </Box>
+      )}
     </div>
   );
 };
