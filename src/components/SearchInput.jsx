@@ -6,10 +6,10 @@ const SearchInput = ({ change }) => {
     <div>
       <Box mb={5}>
         <Input
-          onChange={change}
-          placeholder="Search a movie"
+          onChange={ change }
+          placeholder="Busca una película"
           fullWidth
-          inputProps={{ "aria-label": "Search a movie", type: "search" }}
+          inputProps={{ "aria-label": "Busca una película", type: "search" }}
         />
       </Box>
     </div>

@@ -45,7 +45,6 @@ const defaultFormValue = (user) => {
 const Profile = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.user);
-  console.log("USERRRRRR", user);
   const dispatch = useDispatch();
   const history = useHistory();
   const { form, handleInp } = useForm(defaultFormValue(user));

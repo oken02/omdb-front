@@ -8,6 +8,6 @@ export const login = () => {
       rej();
       return;
     }
-    axios.post("/api/auth/validate", {}, getToken()).then(res, rej);
+    axios.post(`/api/auth/validate`, {}, getToken()).then(res, rej);
   });
 };

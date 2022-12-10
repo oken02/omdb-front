@@ -51,9 +51,8 @@ const Register = () => {
 
   const onRegister = async (e) => {
     e.preventDefault();
-    console.log("DATA", form.getData());
     try {
-      const res = await axios.post("/api/users", form.getData());
+      const res = await axios.post(`/api/users`, form.getData());
       history.push("/login");
     } catch (error) {
       form.setValue("password", "");

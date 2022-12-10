@@ -1,3 +1,4 @@
+import { SnackbarProvider } from "notistack";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -7,12 +8,12 @@ import Register from "./containers/Register";
 
 import Home from "./Home";
 import { sendValidation } from "./store/user.reducer";
-
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
+
     dispatch(sendValidation());
   }, []);
 
@@ -31,21 +32,23 @@ const App = () => {
   }
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
+    <div>
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
 
-        <Route path="/register">
-          <Register />
-        </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
 
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
   );
 };
 

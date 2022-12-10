@@ -11,10 +11,8 @@
     "@mui-treasury/styles": "^1.13.1",
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "pg": "^8.5.1",
-    "pg-hstore": "^2.3.3",
+    "env-cmd": "^10.1.0",
+    "notistack": "^1.0.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -22,17 +20,14 @@
     "react-router-dom": "^5.2.1",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
-    "sequelize": "^6.5.0"
+    "redux-logger": "^3.0.6"
   },
   "scripts": {
-    "start": "concurrently 'npm run server' 'npm run client'",
-    "server": "nodemon api/server.js",
-    "client": "react-scripts start",
-    "build": "react-scripts build",
-    "seed": "node api/seed"
+    "start": "react-scripts start",
+    "build": "CI=false react-scripts build",
+    "start:local": "env-cmd LOCAL npm run start",
+    "build:pro": "env-cmd -e PRO npm run build"
   },
-  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",

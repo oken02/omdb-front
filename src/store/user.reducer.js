@@ -7,6 +7,7 @@ import {
 import axios from "axios";
 import getToken from "../utils/getToken";
 import { login } from "../utils/login";
+const API_URL = process.env;
 
 export const sendValidation = createAsyncThunk("SEND_VALIDATION", () => {
   return login().then(({ data }) => data);
@@ -43,7 +44,7 @@ export const getFavorites = createAsyncThunk(
 export const sendLogin = createAsyncThunk(
   "SEND_LOGIN",
   ({ data: userData, remember }) => {
-    return axios.post("/api/auth/login", userData).then(({ data }) => ({
+    return axios.post(`/api/auth/login`, userData).then(({ data }) => ({
       data,
       remember,
     }));
@@ -68,7 +69,6 @@ export const addFavorite = createAsyncThunk(
 export const deleteFavorite = createAsyncThunk(
   "DELETE_FAVORITE",
   ({ dbId, imdbID }, thunkAPI) => {
-    console.log("THUNK DELETE FAVORITE ", { dbId, imdbID });
     // const user = thunkAPI.getState().user;
 
     return axios
@@ -86,7 +86,6 @@ const userReducer = createReducer(
   {
     [getFavorites.fulfilled]: (state, action) => {
       state.data.favorites = action.payload;
-      console.log("FAVORITES STATE", state.data.favorites);
     },
 
     [updateUser.fulfilled]: (state, action) => {

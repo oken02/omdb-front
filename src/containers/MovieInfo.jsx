@@ -12,7 +12,7 @@ import { useBouncyShadowStyles } from "@mui-treasury/styles/shadow/bouncy";
 import { getMovie } from "../store/user.reducer";
 import { useParams } from "react-router-dom";
 import useAsyncAction from "../hooks/useAsyncAction";
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -58,9 +58,13 @@ export const MovieInfo = React.memo(function NewsCard() {
               heading={movie.Title}
               body={movie.Plot}
             />
-            <Button color={"primary"} fullWidth className={styles.cta}>
+
+            <Typography variant="overline" display="block" gutterBottom>
               {`${movie.Writer}`}
-            </Button>
+            </Typography>
+            {/* <Button color={"primary"} fullWidth className={styles.cta}>
+              {`${movie.Writer}`}
+            </Button> */}
           </CardContent>
         </Card>
       )}
