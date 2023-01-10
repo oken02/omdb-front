@@ -39,7 +39,7 @@ const defaultFormValue = (user) => {
   return {
     fullName: [user.data.fullName || "", [required, length(3)]],
     username: [user.data.username || "", [required, length(3)]],
-    password: [user.data.password || "", [required, length(3)]],
+    password: ["", [required, length(3)]],
   };
 };
 
