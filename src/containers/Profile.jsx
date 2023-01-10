@@ -13,6 +13,7 @@ import useForm from "../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../store/user.reducer";
 import { useHistory } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -36,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
 
 const defaultFormValue = (user) => {
   return {
-    fullName: [user.data.fullName, [required, length(3)]],
-    username: [user.data.username, [required, length(3)]],
-    password: [user.data.password, [required, length(3)]],
+    fullName: [user.data.fullName || "", [required, length(3)]],
+    username: [user.data.username || "", [required, length(3)]],
+    password: [user.data.password || "", [required, length(3)]],
   };
 };
 
@@ -71,30 +72,34 @@ const Profile = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Edit Profile
+          Editar perfil
         </Typography>
-        <form
-          autoComplete="off"
-          className={classes.form}
-          noValidate
-          onSubmit={onRegister}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                error={fullName.dirty && !!fullName.errors.length}
-                helperText={fullName.dirty && fullName.errors[0]}
-                name="fullName"
-                variant="outlined"
-                required
-                fullWidth
-                label="Full Name"
-                autoFocus
-                onChange={handleInp}
-                value={fullName.value}
-              />
-            </Grid>
-            {/* <Grid item xs={12} sm={6}>
+
+        {!user.isAuthenticated ? (
+          <>
+            <br />
+            <Alert style={{ justifyContent: "center" }} severity="info">
+              <strong>Debes logearte primero</strong>
+            </Alert>
+          </>
+        ) : (
+          <form autoComplete="off" className={classes.form} noValidate onSubmit={onRegister}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  error={fullName.dirty && !!fullName.errors.length}
+                  helperText={fullName.dirty && fullName.errors[0]}
+                  name="fullName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  label="Full Name"
+                  autoFocus
+                  onChange={handleInp}
+                  value={fullName.value}
+                />
+              </Grid>
+              {/* <Grid item xs={12} sm={6}>
               <TextField
                 error={!!lastName.errors.length}
                 helperText={lastName.errors[0]}
@@ -108,47 +113,41 @@ const Profile = () => {
                 value={lastName.value}
               />
             </Grid> */}
-            <Grid item xs={12}>
-              <TextField
-                error={username.dirty && !!username.errors.length}
-                helperText={username.dirty && username.errors[0]}
-                variant="outlined"
-                required
-                fullWidth
-                label="username"
-                name="username"
-                autoComplete="username"
-                onChange={handleInp}
-                value={username.value}
-              />
+              <Grid item xs={12}>
+                <TextField
+                  error={username.dirty && !!username.errors.length}
+                  helperText={username.dirty && username.errors[0]}
+                  variant="outlined"
+                  required
+                  fullWidth
+                  label="username"
+                  name="username"
+                  autoComplete="username"
+                  onChange={handleInp}
+                  value={username.value}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  error={password.dirty && !!password.errors.length}
+                  helperText={password.dirty && password.errors[0]}
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  autoComplete="current-password"
+                  onChange={handleInp}
+                  value={password.value}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                error={password.dirty && !!password.errors.length}
-                helperText={password.dirty && password.errors[0]}
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                autoComplete="current-password"
-                onChange={handleInp}
-                value={password.value}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={!form.isValid}
-          >
-            Update
-          </Button>
-        </form>
+            <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} disabled={!form.isValid}>
+              Update
+            </Button>
+          </form>
+        )}
       </div>
     </Container>
   );

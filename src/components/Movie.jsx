@@ -33,11 +33,7 @@ export default function Movie({ movie, style }) {
       <CardActionArea onClick={click}>
         <CardMedia
           className={classes.media}
-          image={
-            movie.Poster === "N/A"
-              ? "https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg"
-              : movie.Poster
-          }
+          image={movie.Poster === "N/A" ? "https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg" : movie.Poster}
           title={movie.Title}
         />
         <CardContent>
@@ -45,18 +41,17 @@ export default function Movie({ movie, style }) {
             {movie.Title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton style={{ padding: "0px" }} aria-label="add to favorites">
           <FavIcon movie={movie} style={style} />
         </IconButton>
 
         <Box width="100%" display="flex" justifyContent="flex-end" pr={3}>
-          <Typography >1995</Typography>
+          <Typography>1995</Typography>
         </Box>
       </CardActions>
     </Card>

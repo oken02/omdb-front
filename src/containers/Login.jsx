@@ -16,6 +16,9 @@ import { length, required } from "../utils/validators";
 import { useHistory, Link as RouterLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { sendLogin } from "../store/user.reducer";
+import { auth } from "../firebase";
+import { GoogleAuthProvider, signInWithPopup, reauthenticateWithPopup, onAuthStateChanged,   } from "firebase/auth";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +77,22 @@ export default function Login() {
       }
     });
   };
+
+  useEffect(()=> {
+    const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log({ currentUser });
+    });
+    return () => unsubuscribe();
+  }, [])
+
+  const loginWithGoogle = async () => {
+    const googleProvider = new GoogleAuthProvider();
+    const res = await signInWithPopup(auth, googleProvider);
+
+    // Reauthenticate using a popup.
+    
+    console.log("🤔 ~ loginWithGoogle ~ res", res)
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -153,6 +172,9 @@ export default function Login() {
                 </Link>
               </Grid>
             </Grid>
+
+            <button onClick={loginWithGoogle}>Login con Google</button>
+
           </form>
         </div>
       </Grid>

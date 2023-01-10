@@ -52,6 +52,7 @@ export const sendLogin = createAsyncThunk(
 );
 
 export const logout = createAction("LOGOUT");
+export const googleLogin = createAction("GOOGLE_LOGIN");
 
 export const setFavorites = createAction("SET_FAVORITES");
 
@@ -97,7 +98,11 @@ const userReducer = createReducer(
       state.data = {};
       state.isAuthenticated = false;
     },
-
+    [googleLogin]: (state, { payload }) => {
+      payload.token && localStorage.setItem("token", payload.token);
+      state.data = payload;
+      state.isAuthenticated = true;
+    },
     [sendLogin.fulfilled]: (state, { payload }) => {
       if (payload.remember) {
         localStorage.setItem("token", payload.data.token);

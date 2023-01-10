@@ -2,13 +2,19 @@ import { Box, CircularProgress } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import LoginAsModal from "../components/LoginAsModal";
 import Movies from "../components/Movies";
 import SearchInput from "../components/SearchInput";
+import { showLoginModal } from "../store/interface.reducer";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch([]);
   const [loading, setLoading] = useState(false);
+
+
   useEffect(() => {
     let cancelled = false;
 
@@ -38,6 +44,7 @@ const Search = () => {
       cancelled = true;
     };
   }, [query]);
+  
 
   return (
     <div>
